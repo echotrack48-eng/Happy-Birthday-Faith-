@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday, Faith 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose: #e8748a;
+      --blush: #f5c2cb;
+      --cream: #fdf6f0;
+      --gold: #c9a96e;
+      --deep: #7a3550;
+      --soft: #f9eef2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--rose);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.2s, height 0.2s;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--rose);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all 0.12s ease;
+      opacity: 0.5;
+    }
+
+    .petals-container {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .petal {
+      position: absolute;
+      top: -40px;
+      font-size: 1.2rem;
+      animation: fall linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.8; }
+      50%  { transform: translateY(50vh) rotate(180deg) translateX(30px); }
+      100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); opacity: 0; }
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background: radial-gradient(ellipse at 60% 40%, #ffe0ea 0%, #fdf6f0 60%),
+                  radial-gradient(ellipse at 20% 80%, #fce4ec 0%, transparent 60%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(232,116,138,0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(201,169,110,0.07) 0%, transparent 40%);
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--gold);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 1s ease 0.2s both;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      color: var(--deep);
+      line-height: 1.05;
+      animation: fadeUp 1s ease 0.4s both;
+    }
+
+    .hero-title span {
+      display: block;
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: #9e6b7a;
+      font-style: italic;
+      animation: fadeUp 1s ease 0.6s both;
+      max-width: 520px;
+    }
+
+    .scroll-hint {
+      margin-top: 3.5rem;
+      animation: fadeUp 1s ease 0.9s both, bounce 2s ease 1.5s infinite;
+      color: var(--rose);
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px; height: 40px;
+      background: var(--rose);
+      margin: 0.6rem auto 0;
+      opacity: 0.5;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-6px); }
+    }
+
+    .divider {
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 1.4rem;
+      color: var(--blush);
+      letter-spacing: 0.8rem;
+    }
+
+    section {
+      position: relative;
+      padding: 6rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-label {
+      font-style: italic;
+      color: var(--gold);
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.7s ease;
+    }
+    .section-label.visible { opacity: 1; transform: translateY(0); }
+
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--deep);
+      line-height: 1.2;
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.7s ease 0.1s;
+    }
+    .section-heading.visible { opacity: 1; transform: translateY(0); }
+
+    .section-text {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      color: #7a5060;
+      line-height: 1.9;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.7s ease 0.2s;
+    }
+    .section-text.visible { opacity: 1; transform: translateY(0); }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #f5d5dc;
+      border-radius: 18px;
+      padding: 2rem 1.5rem;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+    .card.visible { opacity: 1; transform: translateY(0); }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(232,116,138,0.15); }
+
+    .card-icon { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--deep);
+      margin-bottom: 0.5rem;
+    }
+    .card-text { font-size: 0.95rem; color: #9e6b7a; line-height: 1.7; }
+
+    .message-section {
+      background: linear-gradient(135deg, #7a3550 0%, #c05070 100%);
+      padding: 6rem 2rem;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .message-section::before {
+      content: '✦';
+      position: absolute;
+      font-size: 20rem;
+      opacity: 0.04;
+      top: -4rem; left: -2rem;
+      color: white;
+      pointer-events: none;
+    }
+    .message-section .section-heading { color: white; }
+    .message-section .section-text { color: rgba(255,255,255,0.8); }
+
+    .countdown-box {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+    .count-unit {
+      background: white;
+      border-radius: 16px;
+      padding: 1.4rem 1.8rem;
+      min-width: 90px;
+      box-shadow: 0 8px 30px rgba(232,116,138,0.12);
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .count-unit.visible { opacity: 1; transform: scale(1); }
+    .count-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--rose);
+      display: block;
+      line-height: 1;
+    }
+    .count-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #b8929a;
+      display: block;
+      margin-top: 0.3rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      font-style: italic;
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+
+    .heart-burst {
+      position: fixed;
+      pointer-events: none;
+      font-size: 1.2rem;
+      animation: heartFloat 1.2s ease forwards;
+      z-index: 9997;
+    }
+    @keyframes heartFloat {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-80px) scale(0.5); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <div class="petals-container" id="petals"></div>
+
+  <div class="hero">
+    <span class="badge">✦ A special day ✦</span>
+    <h1 class="hero-title">
+      Happy Birthday
+      <span>Faith</span>
+    </h1>
+    <p class="hero-sub">
+      May this day be as beautiful, warm, and rare as you are.
+    </p>
+    <div class="scroll-hint">scroll down</div>
+  </div>
+
+  <div class="divider">· · ✦ · ·</div>
+
+  <section>
+    <span class="section-label animate-me">counting down</span>
+    <h2 class="section-heading animate-me">Your big day is almost here</h2>
+    <p class="section-text animate-me">
+      May 11th is just around the corner — and the whole world is getting ready to celebrate you. 🌸
+    </p>
+    <div class="countdown-box">
+      <div class="count-unit animate-card" id="days-box">
+        <span class="count-number" id="days">–</span>
+        <span class="count-label">Days</span>
+      </div>
+      <div class="count-unit animate-card" id="hours-box">
+        <span class="count-number" id="hours">–</span>
+        <span class="count-label">Hours</span>
+      </div>
+      <div class="count-unit animate-card" id="minutes-box">
+        <span class="count-number" id="minutes">–</span>
+        <span class="count-label">Minutes</span>
+      </div>
+      <div class="count-unit animate-card" id="seconds-box">
+        <span class="count-number" id="seconds">–</span>
+        <span class="count-label">Seconds</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider">· · ✦ · ·</div>
+
+  <section>
+    <span class="section-label animate-me">birthday wishes</span>
+    <h2 class="section-heading animate-me">Everything I wish for you</h2>
+    <div class="cards-grid">
+      <div class="card animate-card">
+        <div class="card-icon">☀️</div>
+        <div class="card-title">Joy Every Day</div>
+        <div class="card-text">May your days overflow with laughter and light you can't contain.</div>
+      </div>
+      <div class="card animate-card">
+        <div class="card-icon">🌺</div>
+        <div class="card-title">Endless Love</div>
+        <div class="card-text">May you always feel deeply cherished by those around you.</div>
+      </div>
+      <div class="card animate-card">
+        <div class="card-icon">⭐</div>
+        <div class="card-title">Big Dreams</div>
+        <div class="card-text">May every dream you hold become a story you tell with pride.</div>
+      </div>
+      <div class="card animate-card">
+        <div class="card-icon">🍀</div>
+        <div class="card-title">Good Fortune</div>
+        <div class="card-text">May the universe bend in your favour this year and every year.</div>
+      </div>
+      <div class="card animate-card">
+        <div class="card-icon">🕊️</div>
+        <div class="card-title">Inner Peace</div>
+        <div class="card-text">May you always find calm and stillness within yourself.</div>
+      </div>
+      <div class="card animate-card">
+        <div class="card-icon">🎂</div>
+        <div class="card-title">Sweet Moments</div>
+        <div class="card-text">May this birthday be the sweetest chapter of your story yet.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="message-section">
+    <section>
+      <span class="section-label animate-me" style="color: rgba(255,255,255,0.6);">a note for you</span>
+      <h2 class="section-heading animate-me">You are something special, Faith.</h2>
+      <p class="section-text animate-me">
+        Happy birthday Faith, you've got a beautiful soul and the best personality a person
+        could dream of. Thank you for being you and giving smiles and peace to everyone around you.
+        Keep lighting up the world, and I pray I get to meet every version of you as time progresses
+        even in your next years. 🌸
+      </p>
+      <p class="section-text animate-me" style="margin-top: 2rem; font-style: italic; opacity: 0.85;">
+        Yours, Ike.
+      </p>
+    </section>
+  </div>
+
+  <div class="divider" style="padding: 2rem 0;">· · ✦ · ·</div>
+
+  <footer>
+    Made with love, just for you &nbsp;♡
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+      setTimeout(() => {
+        ring.style.left = e.clientX + 'px';
+        ring.style.top  = e.clientY + 'px';
+      }, 60);
+    });
+
+    document.addEventListener('click', e => {
+      const hearts = ['♡','✦','✿','❀','✸'];
+      for (let i = 0; i < 5; i++) {
+        const h = document.createElement('div');
+        h.className = 'heart-burst';
+        h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        h.style.left = (e.clientX + (Math.random() - 0.5) * 40) + 'px';
+        h.style.top  = (e.clientY + (Math.random() - 0.5) * 40) + 'px';
+        h.style.color = `hsl(${340 + Math.random() * 30}, 70%, 60%)`;
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 1200);
+      }
+    });
+
+    const petalContainer = document.getElementById('petals');
+    const petalEmojis = ['🌸','🌺','✿','❀','✦','·'];
+    for (let i = 0; i < 22; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+      p.style.left     = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (6 + Math.random() * 10) + 's';
+      p.style.animationDelay   = (Math.random() * 10) + 's';
+      p.style.fontSize = (0.8 + Math.random() * 0.8) + 'rem';
+      petalContainer.appendChild(p);
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.animate-me, .animate-card').forEach(el => observer.observe(el));
+
+    function updateCountdown() {
+      const target = new Date('2026-05-11T00:00:00');
+      const now    = new Date();
+      const diff   = target - now;
+      if (diff <= 0) {
+        document.getElementById('days').textContent    = '0';
+        document.getElementById('hours').textContent   = '0';
+        document.getElementById('minutes').textContent = '0';
+        document.getElementById('seconds').textContent = '0';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000)  / 60000);
+      const s = Math.floor((diff % 60000)    / 1000);
+      document.getElementById('days').textContent    = String(d).padStart(2,'0');
+      document.getElementById('hours').textContent   = String(h).padStart(2,'0');
+      document.getElementById('minutes').textContent = String(m).padStart(2,'0');
+      document.getElementById('seconds').textContent = String(s).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
